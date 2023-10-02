@@ -1,0 +1,6 @@
+[submodule "medisync_appointments_ms"]
+	path = medisync_appointments_ms
+	url = git@github.com:unal-arquisoft-2023/medisync_appointments_ms.git
+[submodule "medisync_users_ms"]
+	path = medisync_users_ms
+	url = git@github.com:unal-arquisoft-2023/medisync_users_ms.git
