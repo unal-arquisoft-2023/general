@@ -2,6 +2,7 @@ version: "3.8"
 
 services:
   appointments_ms:
+    hostname: appointments_ms
     container_name: medisync_appointments_ms 
     image: appointments_ms_img
     build:
@@ -28,11 +29,12 @@ services:
 
   notification_ms:
     container_name: medisync_notification_ms 
+    hostname: notification_ms
     image: notification_ms_img
     build:
       context: ./medisync_nofications_ms
     ports:
-      - 8081:8081
+      - 8888:8888
     networks:
       - appriceit-network
     links:
@@ -40,17 +42,16 @@ services:
     restart: unless-stopped
 
   notification_db:
-    container_name: medisync_appointments_db
+    container_name: medisync_notifications_db
     image: postgres:15.4-alpine
     environment:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: notifydb
-    ports:
-      - 5432:5432
     networks:
       - appriceit-network
   users_ms:
     container_name: medisync_users_ms 
+    hostname: users_ms
     image: users_ms_img
     build:
       context: ./medisync_users_ms
@@ -77,11 +78,15 @@ services:
 
   auth_ms:
     container_name: medisync_auth_ms 
+    hostname: auth_ms
     image: auth_ms_img
     build:
       context: ./medisync_auth_ms
     ports:
       - 80:80
+      - 8000:8000
+    environment:
+      MONGOURI: mongodb://root:example@db/?authSource=admin
     networks:
       - appriceit-network
     links:
@@ -117,6 +122,7 @@ services:
 
   regmed_ms:
     stdin_open: true
+    hostname: regmed_ms
     build:
       context: ./MediSync-RegistrosMedicos-MS
     image: img_regmed_ms
