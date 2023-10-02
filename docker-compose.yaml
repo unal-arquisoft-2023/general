@@ -86,7 +86,7 @@ services:
       - 80:80
       - 8000:8000
     environment:
-      MONGOURI: mongodb://root:example@db/?authSource=admin
+      - MONGO_URI=mongodb://root:example@db:27017/?authSource=admin
     networks:
       - appriceit-network
     links:
@@ -96,7 +96,6 @@ services:
   auth_db:
     container_name: medisync_auth_db
     image: mongo
-    command: mongod --port 27018
     restart: always
     ports:
       - 27018:27018
