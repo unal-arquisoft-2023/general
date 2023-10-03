@@ -1,6 +1,18 @@
 version: "3.8"
 
 services:
+
+  api_gateway:
+    hostname: api_gateway
+    container_name: medisync_api_gateway
+    image: api_gateway_img
+    build:
+      context: ./Api-Gateway 
+    ports:
+      - 5555:5000
+    networks:
+      - appriceit-network
+    
   appointments_ms:
     hostname: appointments_ms
     container_name: medisync_appointments_ms 
@@ -49,6 +61,7 @@ services:
       POSTGRES_DB: notifydb
     networks:
       - appriceit-network
+
   users_ms:
     container_name: medisync_users_ms 
     hostname: users_ms
