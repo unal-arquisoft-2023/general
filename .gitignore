@@ -1,0 +1,9 @@
+.bsp/scala-cli.json
+.metals/metals.lock.db
+.metals/metals.log
+.metals/metals.mv.db
+.scala-build/ide-inputs.json
+.scala-build/ide-options-v2.json
+.scala-build/.bloop/general_bd2c96d2de-test.json
+.scala-build/.bloop/general_bd2c96d2de.json
+.vscode/settings.json
