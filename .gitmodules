@@ -13,3 +13,6 @@
 [submodule "medisync_nofications_ms"]
 	path = medisync_nofications_ms
 	url = git@github.com:unal-arquisoft-2023/medisync_nofications_ms.git
+[submodule "Api-Gateway"]
+	path = Api-Gateway
+	url = git@github.com:unal-arquisoft-2023/Api-Gateway.git

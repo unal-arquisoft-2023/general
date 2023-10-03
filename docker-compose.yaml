@@ -115,6 +115,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: medisync
       MYSQL_PASSWORD: medisync
+      MYSQL_DATABASE: RegistroMedico
     restart: unless-stopped
     networks:
       - appriceit-network
@@ -127,10 +128,14 @@ services:
     image: img_regmed_ms
     container_name: medisync_regmed_ms
     links:
-      - "regmed_db:mysql"
+      - regmed_db
     ports:
       - 5000:5000
+    environment:
+      - DATABASE_URL=mysql://medisync:medisync@regmed_db:3306/RegistroMedico?schema=public
     restart: always
+    networks:
+      - appriceit-network
 
 
   
