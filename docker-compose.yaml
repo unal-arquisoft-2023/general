@@ -9,7 +9,7 @@ services:
     build:
       context: ./Api-Gateway 
     ports:
-      - 5555:5000
+      - 5555:5555
     networks:
       - appriceit-network
     
@@ -111,7 +111,7 @@ services:
     image: mongo
     restart: always
     ports:
-      - 27018:27018
+      - 27018:27017
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
@@ -147,6 +147,16 @@ services:
     environment:
       - DATABASE_URL=mysql://medisync:medisync@regmed_db:3306/RegistroMedico?schema=public
     restart: always
+    networks:
+      - appriceit-network
+
+  queue_mq:
+    container_name: medisync_queue_mq
+    image: rabbitmq:3-management
+    hostname: queue_mq
+    ports:
+      - 15672:15672
+      - 5672:5672
     networks:
       - appriceit-network
 
