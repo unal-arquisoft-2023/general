@@ -11,21 +11,27 @@ services:
     ports:
       - 5555:5555
     networks:
-      - appriceit-network
+      - medisync-network
     
   appointments_ms:
-    hostname: appointments_ms
-    container_name: medisync_appointments_ms 
-    image: appointments_ms_img
+    container_name: appointments_ms 
+    image: appointments_ms_img 
     build:
       context: ./medisync_appointments_ms
       target: appointment_ms
+    environment:
+      - PORT=8081
+      - DB_HOST=appointments_db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=password
+      - DB_NAME=medisyncdb
     ports:
       - 8081:8081
     networks:
-      - appriceit-network
-    links:
-      - "appointments_db:db"
+      - medisync-network
+    depends_on:
+      - appointments_db
     restart: unless-stopped
 
   appointments_db:
@@ -37,7 +43,7 @@ services:
     ports:
       - 5432:5432
     networks:
-      - appriceit-network
+      - medisync-network
 
   notification_ms:
     container_name: medisync_notification_ms 
@@ -48,7 +54,7 @@ services:
     ports:
       - 8888:8888
     networks:
-      - appriceit-network
+      - medisync-network
     links:
       - "notification_db:db"
     restart: unless-stopped
@@ -60,7 +66,7 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: notifydb
     networks:
-      - appriceit-network
+      - medisync-network
 
   users_ms:
     container_name: medisync_users_ms 
@@ -71,7 +77,7 @@ services:
     ports:
       - 6000:6000
     networks:
-      - appriceit-network
+      - medisync-network
     links:
       - "users_db:db"
     restart: unless-stopped
@@ -87,7 +93,7 @@ services:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
     networks:
-      - appriceit-network
+      - medisync-network
 
   auth_ms:
     container_name: medisync_auth_ms 
@@ -101,7 +107,7 @@ services:
     environment:
       - MONGO_URI=mongodb://root:example@db:27017/?authSource=admin
     networks:
-      - appriceit-network
+      - medisync-network
     links:
       - "auth_db:db"
     restart: unless-stopped
@@ -116,7 +122,7 @@ services:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
     networks:
-      - appriceit-network
+      - medisync-network
   
 
   regmed_db:
@@ -131,7 +137,7 @@ services:
       MYSQL_DATABASE: RegistroMedico
     restart: unless-stopped
     networks:
-      - appriceit-network
+      - medisync-network
 
   regmed_ms:
     stdin_open: true
@@ -148,7 +154,7 @@ services:
       - DATABASE_URL=mysql://medisync:medisync@regmed_db:3306/RegistroMedico?schema=public
     restart: always
     networks:
-      - appriceit-network
+      - medisync-network
 
   queue_mq:
     container_name: medisync_queue_mq
@@ -158,10 +164,10 @@ services:
       - 15672:15672
       - 5672:5672
     networks:
-      - appriceit-network
+      - medisync-network
 
 
   
 
 networks:
-  appriceit-network:
+  medisync-network:
