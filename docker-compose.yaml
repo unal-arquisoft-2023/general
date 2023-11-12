@@ -12,6 +12,19 @@ services:
       - 5555:5555
     networks:
       - medisync-network
+
+  api_gateway_proxy:
+    container_name: ag_proxy
+    image: ag_proxy
+    build: 
+      context: ./proxy_back
+    ports:
+      - 9000:80
+    networks:
+      - medisync-network
+    depends_on:
+      - api_gateway
+
     
   appointments_ms:
     container_name: appointments_ms 
@@ -51,12 +64,14 @@ services:
     image: notification_ms_img
     build:
       context: ./medisync_nofications_ms
+    env_file:
+      - notification.env
     ports:
       - 8888:8888
     networks:
       - medisync-network
-    links:
-      - "notification_db:db"
+    depends_on:
+      - notification_db
     restart: unless-stopped
 
   notification_db:
