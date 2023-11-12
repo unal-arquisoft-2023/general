@@ -1,18 +1,18 @@
 [submodule "medisync_appointments_ms"]
 	path = medisync_appointments_ms
-	url = git@github.com:unal-arquisoft-2023/medisync_appointments_ms.git
+	url = https://github.com/unal-arquisoft-2023/medisync_appointments_ms.git
 [submodule "medisync_users_ms"]
 	path = medisync_users_ms
-	url = git@github.com:unal-arquisoft-2023/medisync_users_ms.git
+	url = https://github.com/unal-arquisoft-2023/medisync_users_ms.git
 [submodule "medisync_auth_ms"]
 	path = medisync_auth_ms
-	url = git@github.com:unal-arquisoft-2023/medisync_auth_ms.git
+	url = https://github.com/unal-arquisoft-2023/medisync_auth_ms.git
 [submodule "MediSync-RegistrosMedicos-MS"]
 	path = MediSync-RegistrosMedicos-MS
-	url = git@github.com:unal-arquisoft-2023/MediSync-RegistrosMedicos-MS.git
+	url = https://github.com/unal-arquisoft-2023/MediSync-RegistrosMedicos-MS.git
 [submodule "medisync_nofications_ms"]
 	path = medisync_nofications_ms
-	url = git@github.com:unal-arquisoft-2023/medisync_nofications_ms.git
+	url = https://github.com/unal-arquisoft-2023/medisync_nofications_ms.git
 [submodule "Api-Gateway"]
 	path = Api-Gateway
-	url = git@github.com:unal-arquisoft-2023/Api-Gateway.git
+	url = https://github.com/unal-arquisoft-2023/Api-Gateway.git

@@ -12,6 +12,7 @@ services:
       - 5555:5555
     networks:
       - medisync-network
+    
 
   api_gateway_proxy:
     container_name: ag_proxy
@@ -57,31 +58,32 @@ services:
       - 5432:5432
     networks:
       - medisync-network
+    
 
-  notification_ms:
-    container_name: medisync_notification_ms 
-    hostname: notification_ms
-    image: notification_ms_img
-    build:
-      context: ./medisync_nofications_ms
-    env_file:
-      - notification.env
-    ports:
-      - 8888:8888
-    networks:
-      - medisync-network
-    depends_on:
-      - notification_db
-    restart: unless-stopped
+  # notification_ms:
+  #   container_name: medisync_notification_ms 
+  #   hostname: notification_ms
+  #   image: notification_ms_img
+  #   build:
+  #     context: ./medisync_nofications_ms
+  #   env_file:
+  #     - notification.env
+  #   ports:
+  #     - 8888:8888
+  #   networks:
+  #     - medisync-network
+  #   depends_on:
+  #     - notification_db
+  #   restart: unless-stopped
 
-  notification_db:
-    container_name: medisync_notifications_db
-    image: postgres:15.4-alpine
-    environment:
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: notifydb
-    networks:
-      - medisync-network
+  # notification_db:
+  #   container_name: medisync_notifications_db
+  #   image: postgres:15.4-alpine
+  #   environment:
+  #     POSTGRES_PASSWORD: password
+  #     POSTGRES_DB: notifydb
+  #   networks:
+  #     - medisync-network
 
   users_ms:
     container_name: medisync_users_ms 
