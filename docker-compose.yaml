@@ -16,7 +16,7 @@ services:
 
   api_gateway_proxy:
     container_name: ag_proxy
-    image: ag_proxy
+    image: ag_proxy_img
     build: 
       context: ./proxy_back
     ports:
@@ -25,6 +25,29 @@ services:
       - medisync-network
     depends_on:
       - api_gateway
+
+  frontend:
+    container_name: medisync_frontend
+    image: medisynct_frontend_img
+    build: 
+      context: ./medisync_front
+      target: front
+    ports:
+      - 3030:3030
+    networks:
+      - medisync-network
+
+  frontend_proxy:
+    container_name: front_proxy
+    image: front_proxy_img
+    build: 
+      context: ./proxy_front
+    ports:
+      - 9090:80
+    networks:
+      - medisync-network
+    depends_on:
+      - frontend
 
     
   appointments_ms:
@@ -60,30 +83,30 @@ services:
       - medisync-network
     
 
-  # notification_ms:
-  #   container_name: medisync_notification_ms 
-  #   hostname: notification_ms
-  #   image: notification_ms_img
-  #   build:
-  #     context: ./medisync_nofications_ms
-  #   env_file:
-  #     - notification.env
-  #   ports:
-  #     - 8888:8888
-  #   networks:
-  #     - medisync-network
-  #   depends_on:
-  #     - notification_db
-  #   restart: unless-stopped
+  notification_ms:
+    container_name: medisync_notification_ms 
+    hostname: notification_ms
+    image: notification_ms_img
+    build:
+      context: ./medisync_nofications_ms
+    env_file:
+      - notification.env
+    ports:
+      - 8888:8888
+    networks:
+      - medisync-network
+    depends_on:
+      - notification_db
+    restart: unless-stopped
 
-  # notification_db:
-  #   container_name: medisync_notifications_db
-  #   image: postgres:15.4-alpine
-  #   environment:
-  #     POSTGRES_PASSWORD: password
-  #     POSTGRES_DB: notifydb
-  #   networks:
-  #     - medisync-network
+  notification_db:
+    container_name: medisync_notifications_db
+    image: postgres:15.4-alpine
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: notifydb
+    networks:
+      - medisync-network
 
   users_ms:
     container_name: medisync_users_ms 

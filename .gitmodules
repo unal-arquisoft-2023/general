@@ -16,3 +16,6 @@
 [submodule "Api-Gateway"]
 	path = Api-Gateway
 	url = https://github.com/unal-arquisoft-2023/Api-Gateway.git
+[submodule "medisync_front"]
+	path = medisync_front
+	url = https://github.com/unal-arquisoft-2023/medisync_front.git
